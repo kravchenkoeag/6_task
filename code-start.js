@@ -15,11 +15,11 @@ const countFruit = (list) => {
       count[f] ++;
     }   
   });
+
+  return count;
 }
 
-
-
-
+console.log(countFruit(fruits));
 
 
 // 2. Создать массив который содержит только уникальные значения
@@ -27,9 +27,21 @@ const countFruit = (list) => {
 
 const myFruits = ['kiwi', 'apple', 'kiwi', 'orange', 'kiwi', 'apple'];
 
+const uniqueItems = (list) => {
 
+  const unique = {};
 
+  list.forEach(f => {
+    unique[f] = true;
+  });
 
+  return Object.keys(unique);
+};
+console.log(uniqueItems(myFruits));
+
+// или
+const uniqueFruits = Array.from(new Set(myFruits));
+console.log(uniqueFruits);
 
 
 // 3. Создать функцию, которая сгруппирует студентов по возрасту.
@@ -47,7 +59,19 @@ const students = [
   { name: 'stas', age: 18 },
 ];
 
+const groupStudents = (list) =>{
+  const grouped = {};
+  list.forEach(s => {
+    if (!grouped[s.age]) {
+      grouped[s.age] = [s];
+    } else {
+      grouped[s.age].push(s);      
+    }
+  });
 
+  return grouped;
+}
+console.log(groupStudents(students));
 
 
 
@@ -60,11 +84,45 @@ const students = [
 
 // [-1, 11] или [11, -1] - так как -1 + 11 = 10;
 
-const myNumbers = [3, 5, -4, 8, 11, 1, -1, 6];
+const myNumbers = [3, 5, -4, 8, 11, 1, -1, 6, 5, 5, -3, -7, 4, 6];
 const sum = 10;
 
+const findPairs = (nums, target) => {
 
+  for (let i = 0; i < nums.length; i++) {
+    const numFirst = nums[i];
 
+    for (let j = i + 1; j < nums.length; j++) {
+      const numSecond = nums[j];
+
+      if (numFirst + numSecond === target) {
+        return [numFirst, numSecond];
+      }
+    }
+  }
+  return [];
+};
+console.log(findPairs(myNumbers, sum));
+
+// ИЛИ
+function searchTwist(arr, summ) {
+  let ar = [];
+  for (let i = 0; i < arr.length; i++) {
+    let firstNum = arr[i];
+    for (let j = i + 1; j < arr.length; j++) {
+      let secondNum = arr[j];
+      if (firstNum + secondNum === summ) {
+        ar.push([firstNum, secondNum]);
+      }
+    }
+  }
+  return ar;
+}
+
+let arr = [3, 5, -4, 8, 11, 1, -1, 6, 5, 5, -3, -7, 4, 6];
+let summ = 10;
+
+console.log(searchTwist(arr, sum));
 
 
 
@@ -79,10 +137,27 @@ const friends = [
   { name: 'anna', pizzas: ['fish'] }
 ];
 
+const pizzas = friends.reduce((accum, current) => {
+  return [...accum, ...current.pizzas];
+}, []);
+console.log(pizzas);
+
 
 
 // 6. Записать строку (символы строки) в обратном порядке (2 способа)
 // pizza => azzip
 const myStr = 'pizza';
 
+const reverseString = (str) => {
+  const  reversed = [];
 
+  for (let i = str.length - 1; i >= 0; i--) {
+    reversed.push(str[i]);
+  }
+  return reversed.join('');
+}
+
+const reverseString2 = (str) => {
+  return str.split('').reverse().join('');
+}
+console.log(reverseString2(myStr));
